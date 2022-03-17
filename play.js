@@ -1,25 +1,41 @@
-const net = require("net");
+const connect = require('./client');
+let connection;
 
-// establishes a connection with the game server
-const connect = function () {
-  const conn = net.createConnection({
-    host: '165.227.47.243', // IP address here,
-    port: 50541// PORT number here,
-  });
+const setupInput = function (conn) {
+  connection = conn;
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding("utf8");
+  stdin.resume();
+  stdin.on("data", handleUserInput);
+  return stdin;
+}
 
-  // interpret incoming data as text
-  conn.setEncoding("utf8");
+const handleUserInput = function (key) {
+  if(key === '\u0003') {
+    process.exit();
+  }
 
-  conn.on('connect', () => {
-    conn.write('HELLLLLLLLOOOOOOOOOOOOOOOOOOO.')
-  });
+  if (key === 'w') {
+    connection.write('Move: up');
+  }
+  
 
-  conn.on('data', (data) => {
-    console.log('Server says: ', data);
-  });
+  if (key === 's') {
+    connection.write('Move: down');
+  }
 
-  return conn;
-};
+  if (key === 'a') {
+    connection.write('Move: left');
+  }
+
+  if (key === 'd') {
+    connection.write('Move: right');
+  }
+
+}
+
+// stdin.on("data", handleUserInput);
 
 console.log("Connecting ...");
-connect();
+setupInput(connect());
