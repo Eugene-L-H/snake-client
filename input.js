@@ -27,6 +27,39 @@ const handleUserInput = function (key) {
     connection.write('Move: right');
     console.log('RIGHT');
   }
+
+  if(key === 'x'){
+    connection.write("Say: WATCH OUT!")
+  }
+
+  if(key === 'c'){
+    connection.write("Say: MUHAHAHAHAHAH")
+  }
+
+  if(key === 'v'){
+    connection.write("Say: INCOMING!")
+  }
+
+  if(key === 'b'){
+    connection.write("Say: :(")
+  }
+
+  if(key === 'n'){
+    connection.write("Say: HOWDY!")
+  }
+
+  if(key === 't'){
+    connection.write("Say: CHOO CHOOddd")
+  }
+  
+  if(key === 'y'){
+    connection.write("Say: PLZ DON'T KILL ME")
+  }
+  
+
+  if(key === '\u0003') {
+    process.exit();
+  }
 }
 
 const setupInput = function (conn) {
@@ -40,4 +73,4 @@ const setupInput = function (conn) {
 }
 
 
-  module.exports = { setupInput };
+ module.exports = { setupInput };
